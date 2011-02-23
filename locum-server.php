@@ -196,7 +196,6 @@ class locum_server extends locum {
         $firstbib = $bnum;
       }
       $lastbib = $bnum;
-
       $bib = $this->locum_cntl->scrape_bib($bnum, $this->locum_config['api_config']['skip_covers']);
       $utf = "SET NAMES 'utf8' COLLATE 'utf8_unicode_ci'";
       $utfprep = $db->query($utf);
@@ -863,13 +862,24 @@ class locum_server extends locum {
     list($version, $status_code, $msg) = explode(' ', $http_response_header[0], 3);
     if (preg_match('/xml/', $syn_dl) && $status_code == '200') {
       $syn = simplexml_load_string($syn_dl);
-      if ($syn->SC == 'SC.GIF') {
-        $image_url = 'http://www.syndetics.com/index.php?type=hw7&isbn=' . $stdnum . '/SC.GIF&client=' . $cust_id;
-        $img_size = @getimagesize($image_url);
-        if ($img_size[0] == 1) { $image_url = ''; }
+      $image_file = FALSE;
+
+      if (isset($syn->LC)) {
+        // Use large image.
+        $image_file = 'LC.JPG';
+      }
+      elseif (isset($syn->MC)) {
+        // Medium image.
+        $image_file = 'MC.GIF';
+      }
+      elseif (isset($syn->SC)) {
+        $image_file = 'SC.GIF';
+      }
+      if ($image_file) {
+        $image_url = 'http://www.syndetics.com/index.php?type=hw7&isbn=' . $stdnum . '/' . $image_file . '&client=' . $cust_id;
+        return $image_url;
       }
     }
-    return $image_url;
   }
   
   public function get_syndetics($isbn) {
