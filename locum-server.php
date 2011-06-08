@@ -797,17 +797,17 @@ class locum_server extends locum {
     $image_url = '';
     if ($api_cfg['use_amazon_images'] && $api_cfg['use_syndetic_images']) {
       if ($api_cfg['amazon_img_prio'] >= $api_cfg['syndetic_img_prio']) {
-        $image_url = $this->get_amazon_image($stdnum, $api_cfg['amazon_access_key']);
-        if (!$image_url) { $image_url = $this->get_syndetic_image($stdnum, $api_cfg['syndetic_custid']); }
+        $image_url = self::get_amazon_image($stdnum, $api_cfg['amazon_access_key']);
+        if (!$image_url) { $image_url = self::get_syndetic_image($stdnum, $api_cfg['syndetic_custid']); }
       } else {
-        $image_url = $this->get_syndetic_image($stdnum, $api_cfg['syndetic_custid']);
-        if (!$image_url) { $image_url = $this->get_amazon_image($stdnum, $api_cfg['amazon_access_key']); }
+        $image_url = self::get_syndetic_image($stdnum, $api_cfg['syndetic_custid']);
+        if (!$image_url) { $image_url = self::get_amazon_image($stdnum, $api_cfg['amazon_access_key']); }
 
       }
     } else if ($api_cfg['use_amazon_images']) {
-      $image_url = $this->get_amazon_image($stdnum, $api_cfg['amazon_access_key']);
+      $image_url = self::get_amazon_image($stdnum, $api_cfg['amazon_access_key']);
     } else if ($api_cfg['use_syndetic_images']) {
-      $image_url = $this->get_syndetic_image($stdnum, $api_cfg['syndetic_custid']);
+      $image_url = self::get_syndetic_image($stdnum, $api_cfg['syndetic_custid']);
     }
     return $image_url;
   }
