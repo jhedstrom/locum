@@ -149,7 +149,9 @@ class locum_server extends locum {
           $affrows = $sql_prep->execute($bib_values);
           $doc->subjects = $subj;
           $doc->active = 1;
-          if($doc->upc == '000000000000'){ unset($doc->upc);}
+          if (isset($doc->upc) && $doc->upc == '000000000000') {
+            unset($doc->upc);
+          }
           $couch->storeDoc($doc);
           $this->putlog("Importing bib # $i - $bib[title]");
           $sql_prep->free();
@@ -825,6 +827,7 @@ class locum_server extends locum {
       eval('$hook = new ' . __CLASS__ . '_hook;');
       return $hook->{__FUNCTION__}($stdnum, $api_key);
     }
+    $image_url = FALSE;
     
     $url =  'http://webservices.amazon.com/onca/xml?Service=AWSECommerceService';
     $url.=  "&AWSAccessKeyId=$api_key";
