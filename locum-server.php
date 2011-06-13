@@ -145,9 +145,10 @@ class locum_server extends locum {
           unset($bib_values['non_romanized_author']);
           unset($bib_values['non_romanized_notes']);
           unset($bib_values['genres']);
-          if($init_bib_arr){
-          $bib_values['cover_img'] = $init_bib_arr[0]['cover_img'];
+          if ($init_bib_arr) {
+	    $bib_values['cover_img'] = $init_bib_arr[0]['cover_img'];
           }
+
           $bib_values['subjects_ser'] = serialize($subj);
           $types = array('date', 'date', 'date', 'integer', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'integer', 'text', 'text', 'text', 'text', 'text', 'text', 'integer', 'text');
           $sql_prep = $db->prepare('REPLACE INTO locum_bib_items VALUES (:bnum, :author, :addl_author, :title, :addl_title, :title_medium, :edition, :series, :callnum, :pub_info, :pub_year, :stdnum, :upc, :lccn, :descr, :notes, :subjects_ser, :lang, :loc_code, :mat_code, :cover_img, NOW(), :bib_created, :bib_lastupdate, :bib_prevupdate, :bib_revs, \'1\')');
