@@ -2,9 +2,9 @@
 <?php
 
 // You'll need to change these:
-$first_record = 1000000;
-$last_record = 1500000;
-$large_record_split = 10;
+$first_record = 1380000;
+$last_record = 1387000;
+$large_record_split = 50;
 
 // Init scripts, library locations, and binaries
 $locum_lib_dir = '/usr/local/lib/locum';
