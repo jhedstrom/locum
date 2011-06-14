@@ -204,9 +204,11 @@ class locum_client extends locum {
     }
 
     // Filter inactive records
+    /*
     if (!$show_inactive) {
       $cl->SetFilter('active', array('0'), TRUE);
     }
+    */
 
     $cl->SetRankingMode(SPH_RANK_WORDCOUNT);
     $cl->SetLimits(0, 5000, 5000);
